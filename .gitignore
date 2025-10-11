@@ -1,0 +1,120 @@
+# ===========================
+# OS SYSTEM FILES
+# ===========================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# ===========================
+# EDITOR SETTINGS
+# ===========================
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.bak
+
+# ===========================
+# PYTHON
+# ===========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+*.egg-info/
+*.egg
+.eggs/
+dist/
+build/
+develop-eggs/
+pip-wheel-metadata/
+*.manifest
+*.spec
+
+# Virtual environments
+env/
+venv/
+ENV/
+.venv/
+env.bak/
+
+# ===========================
+# JAVA / JAVAFX
+# ===========================
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+# Maven / Gradle
+target/
+build/
+out/
+
+# Java Logs
+hs_err_pid*
+replay_pid*
+
+# ===========================
+# LOGS / TEMP / CACHE
+# ===========================
+*.log
+logs/
+tmp/
+cache/
+*.tmp
+*.temp
+*.bak
+
+# ===========================
+# ENVIRONMENT / SECRETS
+# ===========================
+.env
+.env.*
+*.key
+*.pem
+*.crt
+*.p12
+*.jks
+
+# ===========================
+# NODE / WEB PROJECTS
+# ===========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# ===========================
+# DATABASE / DATA FILES
+# ===========================
+*.sqlite3
+*.db
+*.sql
+*.csv
+
+# ===========================
+# BACKUPS
+# ===========================
+*.old
+*.orig
+*.rej
+*.backup
+
