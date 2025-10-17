@@ -12,10 +12,15 @@
         v-for="pos in gridSize * gridSize" 
         :key="pos"
         class="cell"
+        :class="{ 
+          'revealed': getNumberAt(pos)?.revealed, 
+          'clicked': getNumberAt(pos)?.clicked,
+          'empty': !getNumberAt(pos)
+        }"
         @click="handleClick(pos)"
       >
-        <span v-if="getNumberAt(pos)?.revealed || getNumberAt(pos)?.clicked">
-          {{ getNumberAt(pos)?.value }}
+        <span v-if="getNumberAt(pos) && (getNumberAt(pos).revealed || getNumberAt(pos).clicked)">
+          {{ getNumberAt(pos).value }}
         </span>
       </div>
     </div>
@@ -53,11 +58,17 @@ const handleClick = (pos) => {
 
     // Check if all numbers are clicked
     if (currentTarget.value > numbers.value.length) {
-      store.commit('SET_STATUS', 'won')
+      // Add bonus points for completing the level
+      store.commit('INCREMENT_SCORE', store.state.level * 50)
+      setTimeout(() => {
+        store.commit('SET_STATUS', 'won')
+        currentTarget.value = 1 // reset for next game
+      }, 300)
     }
   } else {
     // Wrong number clicked
     store.commit('SET_STATUS', 'lost')
+    currentTarget.value = 1 // reset for next game
   }
 }
 </script>
@@ -67,36 +78,77 @@ const handleClick = (pos) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
 .title {
-  font-size: 1.4rem;
-  color: #333;
+  font-size: 1.8rem;
+  color: #667eea;
+  font-weight: bold;
 }
 
 .grid {
   display: grid;
   gap: 10px;
   margin-top: 10px;
-  width: 300px;
-  height: 300px;
+  width: min(400px, 90vw);
+  height: min(400px, 90vw);
 }
 
 .cell {
-  background: #e0e0e0;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #e0e7ff 0%, #cfd9ff 100%);
+  border: 3px solid #a5b4fc;
+  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 1.3rem;
+  font-size: 2rem;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.cell:hover {
-  background: #d0d0d0;
+.cell.empty {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  border-color: #d1d5db;
+  cursor: default;
+}
+
+.cell:not(.empty):hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 100%);
+}
+
+.cell.clicked {
+  background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+  border-color: #22c55e;
+  color: white;
+  animation: pulse 0.3s ease;
+}
+
+.cell.revealed {
+  background: linear-gradient(135deg, #fef08a 0%, #fde047 100%);
+  border-color: #facc15;
+  color: #854d0e;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.cell span {
+  user-select: none;
 }
 </style>
 
