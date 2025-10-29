@@ -1,0 +1,66 @@
+Ahmed khaled 14004458
+Ahmed Masoud 14002120
+
+Project Title:
+
+Number Sequence Memory Game
+
+Reference:
+
+The game idea was inspired by memory sequence games that test a player’s ability to remember numbers or patterns in a short time. Similar games can be found online on sites like GameGix and the Human Benchmark sequence memory test.
+
+Game Strategy
+
+The main idea of our game is that a player will see a grid of boxes with hidden numbers that appear for a few seconds. After that, all numbers disappear and the player has to click on the boxes in ascending order starting from 1. If the player clicks the wrong number, the game immediately ends and a lose message appears.
+
+The player can choose between three levels of difficulty:
+
+Level 1 (Easy) – 3x3 grid with 4 numbers to remember. The numbers stay visible for about 5 seconds. Each correct click gives 10 points.
+
+Level 2 (Medium) – 4x4 grid with 6 numbers. The memorization time becomes shorter (around 4 seconds). Each correct click gives 20 points.
+
+Level 3 (Hard) – 5x5 grid with 8 numbers and only 3 seconds to memorize. Each correct click gives 30 points.
+
+If the player successfully clicks all the numbers in the right order, they finish the level and get a score bonus. If they click wrong, they lose the round. The challenge gets harder with each level since both the number of boxes and the number of hidden values increase, while the viewing time gets shorter.
+
+The score increases when the player chooses the right boxes in sequence. The player loses if they click a wrong box or fail to remember the order.
+
+Game Design
+
+The game design is kept simple and clean. It uses a grid layout with boxes that change color and react to clicks. During the memorization phase, the boxes briefly show numbers, then they flip back to empty. The player then clicks the boxes in the right order.
+
+The interface was built with Vue.js components such as the main grid component, a result modal that appears when the game ends, and a simple level selection menu. Each component handles a specific part of the game. The design is mostly 2D and relies on simple elements like rectangles, colored backgrounds, and text.
+
+For visual feedback, the boxes slightly change color when hovered or clicked. When the player wins or loses, a small animation makes the result modal appear smoothly in the center of the screen. There are also short sound effects that play when the player wins or loses to make the experience more interactive.
+
+Technical Implementation
+
+The application uses Vue.js for structure and Vuex for managing the game state. Vuex stores important data like the current level, the player’s score, whether the game is running, and which numbers are currently active in the grid.
+
+The game uses basic Vue events such as @click on each box to detect the player’s selections. The state updates reactively depending on whether the click was correct or not.
+
+We used Vue’s Composition API (ref, computed, and watch) to manage reactivity and update the interface automatically whenever the state changes. The feedback happens immediately when the player clicks, so if they make a mistake, the loss message shows up right away.
+
+A simple external API was also integrated (GitHub Emoji API) to fetch and display small symbols on the result screen. This was done mainly to practice how to use external APIs inside Vue.
+
+User Experience and Features
+
+The game provides a short memorization challenge that becomes harder with each level. It is designed to be quick and replayable. The user can easily restart and try again to beat their previous score.
+
+Reactive updates make the gameplay smooth without the need to reload anything. Animations and colors change based on the game’s state, helping the player know if they are doing well or not. The addition of simple sound feedback adds more clarity when winning or losing.
+
+The overall experience is straightforward:
+
+Choose a level.
+
+Memorize the numbers for a few seconds.
+
+Click the boxes in the correct order.
+
+See your score and either replay or exit.
+
+This structure makes the game easy to understand even for new users.
+
+Summary
+
+In summary, the Number Sequence Memory Game is a single-player game made with Vue.js and Vuex. It combines memory and logic in a simple interface that reacts quickly to user input. The project includes event handling, state management, API integration, animations, and sounds. It fulfills the technical and creative requirements of the assignment and provides an enjoyable experience through visual and interactive feedback.
