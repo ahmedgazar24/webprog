@@ -1,0 +1,10 @@
+.budget-page { padding: 1rem; max-width: 900px; margin: 0 auto; }
+.controls form { display:flex; gap: .5rem; flex-wrap:wrap; margin-bottom:1rem; }
+.controls input { padding:.4rem; }
+.chart-wrap { width:100%; height:360px; margin-bottom:1rem; }
+.responsive-table { width:100%; border-collapse: collapse; }
+.responsive-table th, .responsive-table td { border:1px solid #ddd; padding: .5rem; text-align:left; }
+@media (max-width:600px) {
+  .controls form { flex-direction: column; }
+}
+

@@ -7,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
+  login(){
+    window.location.href = '/login';
+  }
+  signup(){
+    window.location.href = '/signup';
+  }
+  profile(){
+    window.location.href = '/profile';
+  }
 }

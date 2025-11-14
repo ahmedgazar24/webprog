@@ -1,1 +1,33 @@
-<p>student-fees works!</p>
+<h2>Student Fees</h2>
+
+<table border="1" cellspacing="0" cellpadding="8">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Total Fees</th>
+      <th>Paid</th>
+      <th>Due</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of students">
+      <td>{{ student.id }}</td>
+      <td>{{ student.name }}</td>
+
+      <td>{{ student.totalFees }} EGP</td>
+
+      <td>{{ getPaidTotal(student) }} EGP</td>
+
+
+      <td>
+        <button (click)="invoice(student.id)">Invoice</button>
+        <button (click)="paymentHistory(student.id)">History</button>
+        <input type="number" #paymentInput placeholder="Enter amount" />
+  <button (click)="addpayment(student.id, paymentInput.valueAsNumber)">Add Payment</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

@@ -1,0 +1,13 @@
+.fees-page { padding:1rem; max-width:1000px; margin:0 auto; }
+.create-invoice form { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:1rem; }
+.create-invoice input { padding:.4rem; }
+.responsive-table { width:100%; border-collapse: collapse; margin-top: .5rem; }
+.responsive-table th, .responsive-table td { border:1px solid #ddd; padding:.6rem; text-align:left; }
+.history-row { background:#f9f9f9; }
+@media (max-width:600px) {
+  .create-invoice form { flex-direction: column; }
+  .responsive-table thead { display:none; }
+  .responsive-table tr { display:block; margin-bottom:.5rem; }
+  .responsive-table td { display:flex; justify-content:space-between; padding:.6rem; border-bottom:1px solid #eee; }
+}
+
