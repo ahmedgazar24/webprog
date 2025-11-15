@@ -1,0 +1,53 @@
+.payroll-card {
+	max-width: 900px;
+	margin: 12px auto;
+	padding: 16px;
+	border: 1px solid #e8e8e8;
+	border-radius: 6px;
+	background: #fff;
+}
+.payroll-card h2 {
+	margin-top: 0;
+}
+label {
+	display: block;
+	margin-bottom: 8px;
+}
+.row {
+	display: flex;
+	gap: 12px;
+}
+.row label {
+	flex: 1;
+}
+input[type="number"], input, textarea {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+.actions {
+	margin-top: 10px;
+}
+button {
+	background: #1976d2;
+	color: #fff;
+	border: none;
+	padding: 6px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-right: 6px;
+}
+.payroll-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 12px;
+}
+.payroll-table th, .payroll-table td {
+	border: 1px solid #eee;
+	padding: 8px;
+	text-align: left;
+}
+.payroll-table tfoot td {
+	font-weight: bold;
+}

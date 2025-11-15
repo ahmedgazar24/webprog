@@ -1,0 +1,18 @@
+.signup-card{
+	max-width:420px;
+	margin:12px auto;
+	padding:16px;
+	border:1px solid #ddd;
+	border-radius:6px;
+	background:#fff;
+	box-shadow:0 2px 6px rgba(0,0,0,0.04);
+}
+.signup-card h2{margin:0 0 12px}
+label{display:block;margin-bottom:8px}
+input[type="text"],input[type="email"],input[type="password"],select{
+	width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;margin-top:4px;box-sizing:border-box;
+}
+.actions{margin-top:12px}
+button{background:#1976d2;color:#fff;border:none;padding:8px 12px;border-radius:4px;cursor:pointer}
+.error{color:#b00020;font-size:12px;margin-bottom:8px}
+.success{margin-top:12px;color:green}

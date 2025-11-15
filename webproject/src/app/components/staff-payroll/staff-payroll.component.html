@@ -1,1 +1,73 @@
-<p>staff-payroll works!</p>
+<div class="payroll-card">
+	<h2>Staff Payroll</h2>
+
+	<form [formGroup]="payrollForm" (ngSubmit)="addOrUpdate()">
+		<label>
+			Employee name
+			<input formControlName="employeeName" />
+		</label>
+
+		<label>
+			Position
+			<input formControlName="position" />
+		</label>
+
+		<div class="row">
+			<label>
+				Base salary
+				<input type="number" formControlName="baseSalary" />
+			</label>
+			<label>
+				Allowances
+				<input type="number" formControlName="allowances" />
+			</label>
+			<label>
+				Deductions
+				<input type="number" formControlName="deductions" />
+			</label>
+		</div>
+
+		<div class="actions">
+			<button type="submit">{{ editingId ? 'Update' : 'Add' }} Entry</button>
+			<button type="button" (click)="payrollForm.reset({ employeeName: '', position: '', baseSalary: 0, allowances: 0, deductions: 0 }); editingId = null">Clear</button>
+		</div>
+	</form>
+
+	<h3>Entries</h3>
+	<table class="payroll-table" *ngIf="entries.length">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Position</th>
+				<th>Base</th>
+				<th>Allowances</th>
+				<th>Deductions</th>
+				<th>Net</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let e of entries">
+				<td>{{ e.employeeName }}</td>
+				<td>{{ e.position || '—' }}</td>
+				<td>{{ e.baseSalary | number:'1.0-2' }}</td>
+				<td>{{ e.allowances | number:'1.0-2' }}</td>
+				<td>{{ e.deductions | number:'1.0-2' }}</td>
+				<td>{{ e.netSalary | number:'1.0-2' }}</td>
+				<td>
+					<button (click)="edit(e)">Edit</button>
+					<button (click)="remove(e.id)">Delete</button>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="5">Total net</td>
+				<td>{{ totalNet | number:'1.0-2' }}</td>
+				<td></td>
+			</tr>
+		</tfoot>
+	</table>
+
+	<div *ngIf="!entries.length">No payroll entries yet.</div>
+</div>

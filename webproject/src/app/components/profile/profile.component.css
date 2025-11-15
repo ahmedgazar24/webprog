@@ -1,0 +1,41 @@
+.profile-card {
+	max-width: 600px;
+	margin: 12px auto;
+	padding: 16px;
+	border-radius: 6px;
+	border: 1px solid #e6e6e6;
+	background: #fff;
+}
+.profile-card h2 {
+	margin-top: 0;
+}
+label {
+	display: block;
+	margin-bottom: 8px;
+}
+input, textarea {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+.actions {
+	margin-top: 12px;
+}
+button {
+	background: #1976d2;
+	color: #fff;
+	border: none;
+	padding: 8px 12px;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-right: 8px;
+}
+.error {
+	color: #b00020;
+	font-size: 12px;
+}
+.saved {
+	margin-top: 10px;
+	color: green;
+}
