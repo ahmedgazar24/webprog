@@ -1,0 +1,310 @@
+.users-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header-section {
+  margin-bottom: 2rem;
+}
+
+.header-section h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.current-user-info {
+  margin-bottom: 2rem;
+}
+
+.current-user-info h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.user-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.user-card.current {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.user-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.role-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.role-admin {
+  background: #dc3545;
+  color: white;
+}
+
+.role-accounting {
+  background: #ffc107;
+  color: #333;
+}
+
+.role-student {
+  background: #28a745;
+  color: white;
+}
+
+.user-email {
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+.role-description {
+  color: #555;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.authorization-section {
+  margin-bottom: 2rem;
+}
+
+.authorization-section h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.info-text {
+  background: #e3f2fd;
+  padding: 1rem;
+  border-radius: 4px;
+  border-left: 4px solid #2196f3;
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.role-section {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.role-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.role-header h4 {
+  margin: 0;
+  color: #333;
+  font-size: 1.25rem;
+}
+
+.user-count {
+  background: #f5f5f5;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.access-list {
+  margin-bottom: 1.5rem;
+}
+
+.access-item {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.access-resource {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.access-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.access-full {
+  background: #28a745;
+  color: white;
+}
+
+.access-limited {
+  background: #ffc107;
+  color: #333;
+}
+
+.access-own {
+  background: #17a2b8;
+  color: white;
+}
+
+.access-none {
+  background: #dc3545;
+  color: white;
+}
+
+.access-description {
+  margin: 0;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.users-list {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.users-list h5 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: #555;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.users-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.users-list li {
+  padding: 0.5rem;
+  background: #f5f5f5;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.users-list li.no-users {
+  color: #999;
+  font-style: italic;
+}
+
+.examples-section {
+  margin-bottom: 2rem;
+}
+
+.examples-section h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.example-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.example-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.example-card h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #667eea;
+}
+
+.example-card ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.example-card li {
+  margin-bottom: 0.75rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.example-card strong {
+  color: #333;
+}
+
+.actions-section {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.btn-back {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: #667eea;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.btn-back:hover {
+  background: #5568d3;
+}
+
+@media (max-width: 768px) {
+  .users-container {
+    padding: 1rem;
+  }
+
+  .roles-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .example-cards {
+    grid-template-columns: 1fr;
+  }
+}
+

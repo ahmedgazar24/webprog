@@ -1,19 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [CommonModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
-  login(){
-    window.location.href = '/login';
+export class HomeComponent implements OnInit {
+  currentUser: any = null;
+  userRole: string = '';
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.currentUser = this.authService.getCurrentUser();
+    if (this.currentUser) {
+      this.userRole = this.currentUser.role;
+    }
   }
-  signup(){
-    window.location.href = '/signup';
+
+  logout() {
+    this.authService.logout();
   }
-  profile(){
-    window.location.href = '/profile';
+
+  canAccess(route: string): boolean {
+    if (!this.currentUser) return false;
+    
+    switch(route) {
+      case 'department':
+        return this.userRole === 'admin' || this.userRole === 'accounting';
+      case 'staff':
+        return this.userRole === 'admin' || this.userRole === 'accounting' || this.userRole === 'staff';
+      case 'students':
+        return this.userRole === 'admin' || this.userRole === 'accounting' || this.userRole === 'student';
+      default:
+        return true;
+    }
   }
 }

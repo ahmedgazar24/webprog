@@ -41,10 +41,11 @@
 		<p><strong>Email:</strong> {{ profileForm.value.email }}</p>
 		<p><strong>Phone:</strong> {{ profileForm.value.phone || '—' }}</p>
 		<p><strong>Address:</strong> {{ profileForm.value.address || '—' }}</p>
-		<div class="actions">
-			<button (click)="toggleEdit()">Edit Profile</button>
-		</div>
+	<div class="actions">
+		<button (click)="toggleEdit()">Edit Profile</button>
+		<button (click)="logout()" class="logout-btn">Logout</button>
 	</div>
+</div>
 
-	<div class="saved" *ngIf="savedMessage">{{ savedMessage }}</div>
+<div class="saved" *ngIf="savedMessage">{{ savedMessage }}</div>
 </div>

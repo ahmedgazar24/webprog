@@ -1,4 +1,32 @@
-<h2>UPS</h2>
-<button (click)="login()">Login </button>
-<button (click)="signup()">signup</button>
-<button (click)="profile()">Profile</button>
+<div class="home-container">
+  <div class="welcome-section">
+    <h2>Welcome to University Management System</h2>
+    <div *ngIf="currentUser" class="user-info">
+      <p><strong>Logged in as:</strong> {{ currentUser.name }}</p>
+      <p><strong>Email:</strong> {{ currentUser.email }}</p>
+      <p><strong>Role:</strong> <span class="role-badge">{{ currentUser.role }}</span></p>
+    </div>
+  </div>
+
+  <div class="navigation-section" *ngIf="currentUser">
+    <h3>Navigation</h3>
+    <div class="nav-links">
+      <a routerLink="/profile" class="nav-link">Profile</a>
+      <a routerLink="/users" class="nav-link">Users & Authorization</a>
+      
+      <a *ngIf="canAccess('department')" routerLink="/department" class="nav-link">Department Budget</a>
+      <a *ngIf="canAccess('staff')" routerLink="/staff" class="nav-link">Staff Payroll</a>
+      <a *ngIf="canAccess('students')" routerLink="/students" class="nav-link">Student Fees</a>
+    </div>
+    
+    <button (click)="logout()" class="logout-btn">Logout</button>
+  </div>
+
+  <div *ngIf="!currentUser" class="auth-section">
+    <p>Please log in to access the system.</p>
+    <div class="auth-links">
+      <a routerLink="/login" class="btn-primary">Login</a>
+      <a routerLink="/signup" class="btn-secondary">Sign Up</a>
+    </div>
+  </div>
+</div>
