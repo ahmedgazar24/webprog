@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user.model';
 
 interface NavItem {
   label: string;
-  route: string;
-  icon?: string;
-  roles: ('admin' | 'accounting' | 'student' | 'staff')[];
+  path: string;
 }
 
 @Component({
@@ -15,59 +15,70 @@ interface NavItem {
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrl: './navbar.component.css'
 })
-export class NavbarComponent implements OnInit {
-  currentUser: any = null;
-  userRole: string = '';
-  isAuthenticated: boolean = false;
-  isMenuOpen: boolean = false;
-
-  // Navigation items based on roles
-  navItems: NavItem[] = [
-    { label: 'Home', route: '/home', icon: '🏠', roles: ['admin', 'accounting', 'student', 'staff'] },
-    { label: 'Profile', route: '/profile', icon: '👤', roles: ['admin', 'accounting', 'student', 'staff'] },
-    { label: 'Users & Authorization', route: '/users', icon: '👥', roles: ['admin', 'accounting', 'student', 'staff'] },
-    { label: 'Department Budget', route: '/department', icon: '💰', roles: ['admin', 'accounting'] },
-    { label: 'Staff Payroll', route: '/staff', icon: '💼', roles: ['admin', 'accounting', 'staff'] },
-    { label: 'Student Fees', route: '/students', icon: '📚', roles: ['admin', 'accounting', 'student'] }
-  ];
+export class NavbarComponent implements OnInit, OnDestroy {
+  currentUser: User | null = null;
+  navItems: NavItem[] = [];
+  private sub?: Subscription;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.currentUser = this.authService.getCurrentUser();
-    this.isAuthenticated = this.authService.isAuthenticated();
-    if (this.currentUser) {
-      this.userRole = this.currentUser.role;
-    }
+    // Subscribe to auth changes so nav updates immediately after login/logout
+    this.sub = this.authService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+      this.navItems = this.buildNavItems(user);
+    });
   }
 
-  getVisibleNavItems(): NavItem[] {
-    if (!this.userRole) return [];
-    return this.navItems.filter(item => item.roles.includes(this.userRole as any));
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
   }
 
   logout(): void {
     this.authService.logout();
   }
 
-  toggleMenu(): void {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
+  private buildNavItems(user: User | null): NavItem[] {
+    if (!user) {
+      return [
+        { label: 'Home', path: '/home' },
+        { label: 'Login', path: '/login' },
+        { label: 'Sign Up', path: '/signup' }
+      ];
+    }
 
-  getRoleDisplayName(): string {
-    switch(this.userRole) {
+    switch (user.role) {
       case 'admin':
-        return 'Administrator';
+        return [
+          { label: 'Home', path: '/home' },
+          { label: 'Profile', path: '/profile' },
+          { label: 'Department Budget', path: '/department' },
+          { label: 'Staff Payroll', path: '/staff' },
+          { label: 'Student Fees', path: '/students' }
+        ];
       case 'accounting':
-        return 'Accounting';
-      case 'student':
-        return 'Student';
+        return [
+          { label: 'Home', path: '/home' },
+          { label: 'Profile', path: '/profile' },
+          { label: 'Department Budget', path: '/department' },
+          { label: 'Staff Payroll', path: '/staff' },
+          { label: 'Student Fees', path: '/students' }
+        ];
       case 'staff':
-        return 'Staff';
+        return [
+          { label: 'Home', path: '/home' },
+          { label: 'Profile', path: '/profile' },
+          { label: 'Staff Payroll', path: '/staff' }
+        ];
+      case 'student':
       default:
-        return 'User';
+        return [
+          { label: 'Home', path: '/home' },
+          { label: 'Profile', path: '/profile' },
+          { label: 'Student Fees', path: '/students' }
+        ];
     }
   }
 }

@@ -12,7 +12,6 @@
     <h3>Navigation</h3>
     <div class="nav-links">
       <a routerLink="/profile" class="nav-link">Profile</a>
-      <a routerLink="/users" class="nav-link">Users & Authorization</a>
       
       <a *ngIf="canAccess('department')" routerLink="/department" class="nav-link">Department Budget</a>
       <a *ngIf="canAccess('staff')" routerLink="/staff" class="nav-link">Staff Payroll</a>

@@ -1,62 +1,27 @@
-<nav class="navbar" *ngIf="isAuthenticated">
-  <div class="navbar-container">
-    <div class="navbar-brand">
-      <a routerLink="/home" class="brand-link">
-        <span class="brand-icon">🏛️</span>
-        <span class="brand-text">University Management</span>
-      </a>
-    </div>
-
-    <!-- Desktop Navigation -->
-    <div class="navbar-menu desktop-menu">
-      <ul class="nav-list">
-        <li *ngFor="let item of getVisibleNavItems()" class="nav-item">
-          <a [routerLink]="item.route" routerLinkActive="active" class="nav-link">
-            <span class="nav-icon">{{ item.icon }}</span>
-            <span class="nav-label">{{ item.label }}</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <!-- User Info & Actions -->
-    <div class="navbar-user">
-      <div class="user-info">
-        <span class="user-name">{{ currentUser?.name }}</span>
-        <span class="user-role" [class]="'role-' + userRole">{{ getRoleDisplayName() }}</span>
-      </div>
-      <button class="logout-btn" (click)="logout()">
-        <span class="logout-icon">🚪</span>
-        <span class="logout-text">Logout</span>
-      </button>
-    </div>
-
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle" (click)="toggleMenu()" aria-label="Toggle menu">
-      <span class="hamburger-icon">☰</span>
-    </button>
+<nav class="navbar">
+  <div class="brand">
+    <a routerLink="/home">University Portal</a>
   </div>
 
-  <!-- Mobile Navigation -->
-  <div class="mobile-menu" [class.open]="isMenuOpen">
-    <ul class="mobile-nav-list">
-      <li *ngFor="let item of getVisibleNavItems()" class="mobile-nav-item">
-        <a [routerLink]="item.route" routerLinkActive="active" (click)="isMenuOpen = false" class="mobile-nav-link">
-          <span class="nav-icon">{{ item.icon }}</span>
-          <span class="nav-label">{{ item.label }}</span>
-        </a>
-      </li>
-      <li class="mobile-nav-item mobile-user-info">
-        <div class="mobile-user-details">
-          <span class="user-name">{{ currentUser?.name }}</span>
-          <span class="user-role" [class]="'role-' + userRole">{{ getRoleDisplayName() }}</span>
-        </div>
-        <button class="mobile-logout-btn" (click)="logout()">
-          <span class="logout-icon">🚪</span>
-          <span>Logout</span>
-        </button>
-      </li>
-    </ul>
+  <div class="nav-links">
+    <a
+      *ngFor="let item of navItems"
+      routerLink="{{ item.path }}"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      {{ item.label }}
+    </a>
+  </div>
+
+  <div class="auth-info">
+    <ng-container *ngIf="currentUser; else guestLinks">
+      <span class="welcome">Hi, {{ currentUser?.name }}</span>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </ng-container>
+    <ng-template #guestLinks>
+      <a routerLink="/login" class="login-link">Login</a>
+    </ng-template>
   </div>
 </nav>
 

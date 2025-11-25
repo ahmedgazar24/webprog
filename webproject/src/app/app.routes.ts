@@ -8,7 +8,6 @@ import { StaffPayrollComponent } from './components/staff-payroll/staff-payroll.
 import { StudentFeesComponent } from './components/student-fees/student-fees.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { UsersComponent } from './components/users/users.component';
 
 // Guards
 import { authGuard, roleGuard } from './guards/auth.guard';
@@ -23,7 +22,6 @@ export const routes: Routes = [
   
   // Protected routes - require authentication
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
-  { path: 'users', component: UsersComponent, canActivate: [authGuard] },
   
   // Financial routes - require accounting or admin role
   { 
