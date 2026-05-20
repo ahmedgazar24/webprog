@@ -1,0 +1,32 @@
+<div class="budget-page">
+  <h2>Department Budget</h2>
+
+  <div class="controls">
+    <form (submit)="addDepartment(); $event.preventDefault()">
+      <input placeholder="Department name" [(ngModel)]="newDeptName" name="dname" />
+      <input type="number" placeholder="Income" [(ngModel)]="newDeptIncome" name="dincome" />
+      <input type="number" placeholder="Expenses" [(ngModel)]="newDeptExpenses" name="dexpenses" />
+      <button type="submit">Add Department</button>
+    </form>
+  </div>
+
+  <div class="chart-wrap">
+    <canvas #budgetChart></canvas>
+  </div>
+
+  <h3>Departments</h3>
+  <table class="responsive-table">
+    <thead>
+      <tr><th>Name</th><th>Income</th><th>Expenses</th><th>Net</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of departments">
+        <td>{{ d.name }}</td>
+        <td><input type="number" [(ngModel)]="d.income" (change)="updateValues()" /></td>
+        <td><input type="number" [(ngModel)]="d.expenses" (change)="updateValues()" /></td>
+        <td>{{ d.income - d.expenses }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

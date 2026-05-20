@@ -1,0 +1,54 @@
+<div class="signup-card">
+	<h2>Create an account</h2>
+
+	<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+		<label>
+			Full name
+			<input type="text" formControlName="fullName" />
+		</label>
+		<div class="error" *ngIf="submitted && f['fullName'].errors">
+			<small *ngIf="f['fullName'].errors['required']">Name is required.</small>
+			<small *ngIf="f['fullName'].errors['minlength']">Name must be at least 3 characters.</small>
+		</div>
+
+		<label>
+			Email
+			<input type="email" formControlName="email" />
+		</label>
+		<div class="error" *ngIf="submitted && f['email'].errors">
+			<small *ngIf="f['email'].errors['required']">Email is required.</small>
+			<small *ngIf="f['email'].errors['email']">Enter a valid email.</small>
+		</div>
+
+		<label>
+			Password
+			<input type="password" formControlName="password" />
+		</label>
+		<div class="error" *ngIf="submitted && f['password'].errors">
+			<small *ngIf="f['password'].errors['required']">Password is required.</small>
+			<small *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters.</small>
+		</div>
+
+		<label>
+			Confirm password
+			<input type="password" formControlName="confirmPassword" />
+		</label>
+		<div class="error" *ngIf="submitted && signupForm.errors?.['mismatch']">
+			<small>Passwords do not match.</small>
+		</div>
+
+		<label>
+			Role
+			<select formControlName="role">
+				<option value="student">Student</option>
+				<option value="staff">Staff</option>
+			</select>
+		</label>
+
+		<div class="actions">
+			<button type="submit">Sign up</button>
+		</div>
+	</form>
+
+	<div class="success" *ngIf="successMessage">{{ successMessage }}</div>
+</div>

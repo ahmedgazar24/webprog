@@ -1,0 +1,184 @@
+<div class="fees-page">
+  <h2>Student Fees</h2>
+
+  <div class="role-notice" *ngIf="currentUserId">
+    <div class="notice-content">
+      <strong>Role-Based Access:</strong>
+      <span *ngIf="canViewAll">
+        You are viewing as <strong>{{ userRole }}</strong>. You can see all students' fees and manage payments for any student.
+      </span>
+      <span *ngIf="!canViewAll">
+        You are viewing as <strong>{{ userRole }}</strong>. You can only see your own fee record and payment history. 
+        You cannot mark payments - only Admin and Accounting personnel can manage payments.
+      </span>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Total Fees</th>
+          <th>Paid</th>
+          <th>Due</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <td data-label="ID">{{ student.id }}</td>
+          <td data-label="Name">{{ student.name }}</td>
+          <td data-label="Total Fees">{{ student.totalFees | number:'1.0-2' }} EGP</td>
+          <td data-label="Paid">{{ getPaidTotal(student) | number:'1.0-2' }} EGP</td>
+          <td data-label="Due" [class.overdue]="getDueAmount(student) > 0">
+            {{ getDueAmount(student) | number:'1.0-2' }} EGP
+          </td>
+          <td data-label="Actions" class="actions-cell">
+            <button class="btn btn-primary" (click)="openInvoiceModal(student.id)">Invoice</button>
+            <button *ngIf="canViewAll" class="btn btn-success" (click)="openPaymentModal(student.id)">Mark Payment</button>
+            <button class="btn btn-info" (click)="openHistoryModal(student.id)">History</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Invoice Modal -->
+  <div class="modal-overlay" *ngIf="showInvoiceModal" (click)="closeInvoiceModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Invoice - {{ selectedStudent?.name }}</h3>
+        <button class="close-btn" (click)="closeInvoiceModal()">&times;</button>
+      </div>
+      <div class="modal-body" *ngIf="selectedStudent">
+        <div class="invoice-details">
+          <div class="invoice-row">
+            <span class="label">Student ID:</span>
+            <span class="value">{{ selectedStudent.id }}</span>
+          </div>
+          <div class="invoice-row">
+            <span class="label">Student Name:</span>
+            <span class="value">{{ selectedStudent.name }}</span>
+          </div>
+          <div class="invoice-row">
+            <span class="label">Total Fees:</span>
+            <span class="value">{{ selectedStudent.totalFees | number:'1.0-2' }} EGP</span>
+          </div>
+          <div class="invoice-row">
+            <span class="label">Total Paid:</span>
+            <span class="value">{{ getPaidTotal(selectedStudent) | number:'1.0-2' }} EGP</span>
+          </div>
+          <div class="invoice-row">
+            <span class="label">Due Amount:</span>
+            <span class="value" [class.overdue]="getDueAmount(selectedStudent) > 0">
+              {{ getDueAmount(selectedStudent) | number:'1.0-2' }} EGP
+            </span>
+          </div>
+          <div class="invoice-row">
+            <span class="label">Status:</span>
+            <span class="value" [class.paid]="getDueAmount(selectedStudent) === 0" [class.pending]="getDueAmount(selectedStudent) > 0">
+              {{ getDueAmount(selectedStudent) === 0 ? 'Paid in Full' : 'Pending Payment' }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeInvoiceModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Modal -->
+  <div class="modal-overlay" *ngIf="showPaymentModal" (click)="closePaymentModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Mark Payment - {{ selectedStudent?.name }}</h3>
+        <button class="close-btn" (click)="closePaymentModal()">&times;</button>
+      </div>
+      <div class="modal-body" *ngIf="selectedStudent">
+        <form (ngSubmit)="markPayment(); $event.preventDefault()">
+          <div class="form-group">
+            <label>Payment Amount (EGP)</label>
+            <input type="number" [(ngModel)]="paymentAmount" name="paymentAmount" 
+                   min="0.01" step="0.01" required 
+                   [max]="getDueAmount(selectedStudent)" />
+            <small *ngIf="getDueAmount(selectedStudent) > 0">
+              Maximum: {{ getDueAmount(selectedStudent) | number:'1.0-2' }} EGP
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Payment Date</label>
+            <input type="date" [(ngModel)]="paymentDate" name="paymentDate" required />
+          </div>
+          <div class="form-group">
+            <div class="info-box">
+              <strong>Current Status:</strong><br>
+              Total Fees: {{ selectedStudent.totalFees | number:'1.0-2' }} EGP<br>
+              Paid: {{ getPaidTotal(selectedStudent) | number:'1.0-2' }} EGP<br>
+              Due: {{ getDueAmount(selectedStudent) | number:'1.0-2' }} EGP
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success" [disabled]="paymentAmount <= 0 || paymentAmount > getDueAmount(selectedStudent)">
+              Mark Payment
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="closePaymentModal()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- History Modal -->
+  <div class="modal-overlay" *ngIf="showHistoryModal" (click)="closeHistoryModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Payment History - {{ selectedStudent?.name }}</h3>
+        <button class="close-btn" (click)="closeHistoryModal()">&times;</button>
+      </div>
+      <div class="modal-body" *ngIf="selectedStudent">
+        <div class="history-summary">
+          <div class="summary-item">
+            <span class="summary-label">Total Fees:</span>
+            <span class="summary-value">{{ selectedStudent.totalFees | number:'1.0-2' }} EGP</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Total Paid:</span>
+            <span class="summary-value">{{ getPaidTotal(selectedStudent) | number:'1.0-2' }} EGP</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Remaining:</span>
+            <span class="summary-value" [class.overdue]="getDueAmount(selectedStudent) > 0">
+              {{ getDueAmount(selectedStudent) | number:'1.0-2' }} EGP
+            </span>
+          </div>
+        </div>
+        <div class="history-table-container">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let payment of selectedStudent.payments" class="history-row">
+                <td>{{ formatDate(payment.date) }}</td>
+                <td>{{ payment.amount | number:'1.0-2' }} EGP</td>
+              </tr>
+              <tr *ngIf="selectedStudent.payments.length === 0">
+                <td colspan="2" class="no-data">No payment history available</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeHistoryModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

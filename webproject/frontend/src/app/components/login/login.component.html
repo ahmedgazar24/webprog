@@ -1,0 +1,63 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Login</h2>
+    
+    <form (ngSubmit)="onSubmit($event)" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          [(ngModel)]="email"
+          required 
+          placeholder="Enter your email"
+        />
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          [(ngModel)]="password"
+          required 
+          placeholder="Enter your password"
+        />
+      </div>
+      
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      
+      <button 
+        type="submit" 
+        [disabled]="!loginForm.form.valid || isLoading"
+        class="btn-primary"
+      >
+        {{ isLoading ? 'Logging in...' : 'Login' }}
+      </button>
+    </form>
+    
+    <div class="signup-section">
+      <p>Don't have an account?</p>
+      <button 
+        type="button" 
+        routerLink="/signup" 
+        class="btn-secondary"
+      >
+        Sign Up
+      </button>
+    </div>
+    
+    <div class="demo-credentials">
+      <h4>Demo Credentials:</h4>
+      <p><strong>Admin:</strong> admin&#64;example.com / admin123</p>
+      <p><strong>Accounting:</strong> accounting&#64;example.com / acc123</p>
+      <p><strong>Staff:</strong> staff&#64;example.com / staff123</p>
+      <p><strong>Student:</strong> student&#64;example.com / student123</p>
+    </div>
+  </div>
+</div>
+

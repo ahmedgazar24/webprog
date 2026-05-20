@@ -1,0 +1,51 @@
+<div class="profile-card">
+	<h2>User Profile</h2>
+
+	<form [formGroup]="profileForm" (ngSubmit)="save()" *ngIf="editing">
+		<label>
+			Full name
+			<input formControlName="fullName" />
+		</label>
+		<div class="error" *ngIf="f['fullName'].invalid && f['fullName'].touched">
+			<small *ngIf="f['fullName'].errors?.['required']">Name is required.</small>
+			<small *ngIf="f['fullName'].errors?.['minlength']">Name is too short.</small>
+		</div>
+
+		<label>
+			Email
+			<input formControlName="email" />
+		</label>
+		<div class="error" *ngIf="f['email'].invalid && f['email'].touched">
+			<small *ngIf="f['email'].errors?.['required']">Email is required.</small>
+			<small *ngIf="f['email'].errors?.['email']">Enter a valid email.</small>
+		</div>
+
+		<label>
+			Phone
+			<input formControlName="phone" />
+		</label>
+
+		<label>
+			Address
+			<textarea formControlName="address"></textarea>
+		</label>
+
+		<div class="actions">
+			<button type="submit">Save</button>
+			<button type="button" (click)="toggleEdit()">Cancel</button>
+		</div>
+	</form>
+
+	<div *ngIf="!editing">
+		<p><strong>Name:</strong> {{ profileForm.value.fullName }}</p>
+		<p><strong>Email:</strong> {{ profileForm.value.email }}</p>
+		<p><strong>Phone:</strong> {{ profileForm.value.phone || '—' }}</p>
+		<p><strong>Address:</strong> {{ profileForm.value.address || '—' }}</p>
+	<div class="actions">
+		<button (click)="toggleEdit()">Edit Profile</button>
+		<button (click)="logout()" class="logout-btn">Logout</button>
+	</div>
+</div>
+
+<div class="saved" *ngIf="savedMessage">{{ savedMessage }}</div>
+</div>
